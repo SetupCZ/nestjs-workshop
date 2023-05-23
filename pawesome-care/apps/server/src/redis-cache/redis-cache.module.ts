@@ -1,6 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 import { CacheInterceptor, CacheModule } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-yet';
+import { RedisCacheService } from './redis-cache.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 
@@ -24,10 +25,12 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     }),
   ],
   providers: [
+    RedisCacheService,
     {
       provide: APP_INTERCEPTOR,
       useClass: CacheInterceptor,
     },
   ],
+  exports: [RedisCacheService],
 })
 export class RedisCacheModule {}

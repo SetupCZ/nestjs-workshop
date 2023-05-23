@@ -8,4 +8,12 @@ export class CatsService {
   async getCat(id: string): Promise<string> {
     return await this.storage.get(id);
   }
+
+  async find(query: string): Promise<string> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve(`This action found a cat by searching ${query}`);
+      }, 3000);
+    });
+  }
 }
