@@ -1,15 +1,27 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { CatsService } from './cats.service';
 
 @Controller('cats')
 export class CatsController {
+  constructor(@Inject(CatsService) private catsService: CatsService) {}
+
   @Get()
   findAll(): string {
     return 'This action returns all cats';
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string): string {
-    return `This action returns a cat with id ${id}`;
+  async findOne(@Param('id') id: string): Promise<string> {
+    console.log('id', id);
+    return this.catsService.getCat(id);
   }
 
   @Post(':id')
