@@ -6,16 +6,23 @@ import {
   Param,
   Post,
   Put,
+  UseInterceptors,
 } from '@nestjs/common';
 import { CatsService } from './cats.service';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 @Controller('cats')
+@UseInterceptors(CacheInterceptor)
 export class CatsController {
   constructor(@Inject(CatsService) private catsService: CatsService) {}
 
   @Get()
-  findAll(): string {
-    return 'This action returns all cats';
+  async findAll(): Promise<string> {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve('This action returns all cats');
+      }, 3000);
+    });
   }
 
   @Get(':id')
