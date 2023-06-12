@@ -14,7 +14,10 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@pawesome-care/game-types": ["libs/game-types/src/index.ts"],
+      "@pawesome-care/redis-client": ["libs/redis-client/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
